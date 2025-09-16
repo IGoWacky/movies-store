@@ -66,5 +66,5 @@ def delete_review(request, id, review_id):
 def report_review(request, id, review_id):
     review = get_object_or_404(Review, id=review_id)
     reported = request.session.get('reported', [])
-    reported.append(review)
+    reported.append(review_id)
     return redirect('movies.show', id=id)

@@ -39,7 +39,7 @@
                 <hr />
                 <ul class="list-group">
                     {% for review in template_data.reviews %}
-                    {% if review not in template_data.reported %}
+                    {% if review.id not in template_data.reported %}
                     <li class="list-group-item pb-3 pt-3">
                         <h5 class="card-title">
                             Review by {{ review.user.username }}
