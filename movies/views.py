@@ -64,12 +64,5 @@ def delete_review(request, id, review_id):
 
 def report_review(request, id, review_id):
     review = get_object_or_404(Review, id=review_id)
-    if 'reported' not in request.session:
-        request.session['reported'] = []
-
-    reported = request.session['reported']
-
-    if review_id not in reported:
-        reported.append(review_id)
-        request.session['reported'] = reported
+    review.delete()
     return redirect('movies.show', id=id)
