@@ -21,6 +21,7 @@ def show(request, id):
     template_data['title'] = movie.name
     template_data['movie'] = movie
     template_data['reviews'] = reviews
+    template_data['reported'] = request.session.get('reported', [])
     return render(request, 'movies/show.html', {'template_data': template_data})
 
 @login_required
@@ -59,4 +60,11 @@ def edit_review(request, id, review_id):
 def delete_review(request, id, review_id):
     review = get_object_or_404(Review, id=review_id, user=request.user)
     review.delete()
+    return redirect('movies.show', id=id)
+
+@login_required
+def report_review(request, id, review_id):
+    review = get_object_or_404(Review, id=review_id, user=request.user)
+    reported = request.session.get('reported', [])
+    reported.append(review)
     return redirect('movies.show', id=id)
